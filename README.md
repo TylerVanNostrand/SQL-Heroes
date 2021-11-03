@@ -9,3 +9,8 @@
 * echo data to api of postman
 * close connection    
     
+
+    create - post
+    read - get
+    update - put or patch ( put accepts data patch accepts data and puts something back)
+    delete - delete
