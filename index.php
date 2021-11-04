@@ -45,7 +45,7 @@ if ($conn->connect_error) {
                 //     updateAllHeroes($_Get["name"], $_GET["about_me"], $_GET['biography'], $conn);
                 //     break;
                 case "delete":
-                    deleteHero($_POST['name']);
+                    deleteHero($_GET['name']);
                     break;
                 default:
                     echo 'Error 404 Not Found';
