@@ -1,69 +1,87 @@
 <?php
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "sqlheroes";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "sqlheroes";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
-    if ($conn->connect_error) {
+// Check connection
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+}
+//echo "Connected successfully";
+
+// define function
+    function create($name, $about_me, $biography, $conn)   {
+        //print_r($_POST);
+        $SQL = "INSERT INTO heroes(name, about_me, biography) 
+             VALUES ('$name', '$about_me', '$biography')";
+        // echo $SQL;
+    if ( $name == null)    {
+        echo 'Error No Name';
+        return;
     }
-    echo "Connected successfully";
+    if ($conn->query($SQL) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $SQL . "<br>" . $conn->error;
+    }
+}
 
-//     function create()   {
-//         print_r($_GET);
-//         $SQL = "INSERT INTO heroes(name, about_me, biography) 
-//              VALUES ()";
+    if(isset($_GET['action']))    {
+        $route = $_GET["action"];
+            switch ($route) {
+                case "create":
+                    create($_POST['name'], $_POST['about_me'], $_POST['biography'], $conn);
+                    showAllHeroes();
+                    break;
+                case "read":
+                    showAllHeroes();
+                    break;
+                // case "update":
+                //     updateAllHeroes($_Get["name"], $_GET["about_me"], $_GET['biography'], $conn);
+                //     break;
+                case "delete":
+                    deleteHero($_POST['name']);
+                    break;
+                default:
+                    echo 'Error 404 Not Found';
+                    break;
+    }        
+} else {
+    echo 'Welcome To The Main Page';
+}
+    
+// Read
+    
+function showAllHeroes()    {
+
+        $SQL = "SELECT * FROM heroes"; 
+        global $conn;
+        $result = $conn->query($SQL); 
+    while ($row = $result->fetch_assoc()) {
+        echo '<br >name:' . $row['name'] . '<br >about_me:' . $row['about_me'];
+    }
+}
 
 
+// Update
+    
+// function updateAllHeroes($name, $about_me, $biography)  {
 
-//     }
-
-//     if(isset($_GET['route']))    {
-//         $route = $_GET["route"];
-//     switch ($route) {
-//         case "create":
-//             create();
-//             break;
-//         // case "allHeroes":
-//         //     createAllHeroes($_GET["id"], $conn);
-//         //     break;
-//         // case "read":
-//         //     viewAllHeroes($_GET["id"], $conn);
-//         //     break;
-//         // case "update":
-//         //     updateAllHeroes($_Get["id"], $_GET["name"], $conn);
-//         //     break;
-//         // case "delete":
-//         //     deleteHero($_Get["id"], $conn);
-//         default:
-//             echo 'Error';
-//     }        
 // }
-// // Create
-    
 
 
-
-
-// // Read
-    
-
-
-
-// // Update
-    
-
-
-
-// // Delete
-   
-
-
-
-
-
+// Delete
+function deleteHero($name)   {
+    $SQL = "DELETE FROM heroes WHERE name = '$name'";
+    global $conn;
+    if ($conn->query($SQL) === TRUE) {
+        echo "Successfully Deleted";
+    } else {
+        echo "Error: " . $SQL . "<br>" . $conn->error;
+    }
+}
