@@ -41,9 +41,9 @@ if ($conn->connect_error) {
                 case "read":
                     showAllHeroes();
                     break;
-                // case "update":
-                //     updateAllHeroes($_Get["name"], $_GET["about_me"], $_GET['biography'], $conn);
-                //     break;
+                case "update":
+                    updateHero($_GET['id'], $_Get['name'], $_GET['about_me'], $_GET['biography'], $conn);
+                    break;
                 case "delete":
                     deleteHero($_GET['name']);
                     break;
@@ -70,9 +70,15 @@ function showAllHeroes()    {
 
 // Update
     
-// function updateAllHeroes($name, $about_me, $biography)  {
-
-// }
+function updateHero($id, $name, $about_me, $biography)  {
+    $SQL = "UPDATE heroes SET name = '$name', about_me = '$about_me', biography = '$biography' WHERE id = '$id'";
+    global $conn;
+    if ($conn->query($SQL) === TRUE) {
+        echo "Successfully Updated";
+    } else {
+        echo "Error: " . $SQL . "<br>" . $conn->error;
+    }
+}
 
 
 // Delete
