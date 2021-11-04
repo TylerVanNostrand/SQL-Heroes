@@ -42,7 +42,7 @@ if ($conn->connect_error) {
                     showAllHeroes();
                     break;
                 case "update":
-                    updateHero($_GET['id'], $_Get['name'], $_GET['about_me'], $_GET['biography'], $conn);
+                    updateHero($_GET['id'], $_GET['name'], $_GET['about_me'], $_GET['biography'], $conn);
                     break;
                 case "delete":
                     deleteHero($_GET['name']);
@@ -65,6 +65,7 @@ function showAllHeroes()    {
     while ($row = $result->fetch_assoc()) {
         echo '<br >name:' . $row['name'] . '<br >about_me:' . $row['about_me'];
     }
+    
 }
 
 
