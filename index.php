@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 //echo "Connected successfully";
 
-// define function
+// Create
     function create($name, $about_me, $biography, $conn)   {
         //print_r($_POST);
         $SQL = "INSERT INTO heroes(name, about_me, biography) 
@@ -65,7 +65,7 @@ function showAllHeroes()    {
     while ($row = $result->fetch_assoc()) {
         echo '<br >name:' . $row['name'] . '<br >about_me:' . $row['about_me'];
     }
-    
+
 }
 
 
