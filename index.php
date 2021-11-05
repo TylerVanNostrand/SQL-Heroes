@@ -58,16 +58,21 @@ if ($conn->connect_error) {
 // Read
     
 function showAllHeroes()    {
-
-        $SQL = "SELECT * FROM heroes"; 
+        $SQL = "SELECT
+        heroes.name,
+        heroes.about_me,
+        GROUP_CONCAT(ability_type.ability SEPARATOR ', ') AS abilities
+        FROM heroes
+        INNER JOIN abilities ON abilities.hero_id = heroes.id
+        INNER JOIN ability_type ON ability_type.id = abilities.ability_id
+        GROUP BY heroes.name"; 
         global $conn;
         $result = $conn->query($SQL); 
     while ($row = $result->fetch_assoc()) {
-        echo '<br >name:' . $row['name'] . '<br >about_me:' . $row['about_me'];
+        echo '<br >name:' . $row['name'] . '<br >about_me:' . $row['about_me'] . '<br > abilities:' . $row['abilities'];
     }
 
 }
-
 
 // Update
     
@@ -92,3 +97,4 @@ function deleteHero($name)   {
         echo "Error: " . $SQL . "<br>" . $conn->error;
     }
 }
+
