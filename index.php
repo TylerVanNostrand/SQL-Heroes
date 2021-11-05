@@ -55,8 +55,7 @@ if ($conn->connect_error) {
     echo 'Welcome To The Main Page';
 }
     
-// Read
-    
+// Read 
 function showAllHeroes()    {
         $SQL = "SELECT
         heroes.name,
@@ -74,8 +73,7 @@ function showAllHeroes()    {
 
 }
 
-// Update
-    
+// Update   
 function updateHero($id, $name, $about_me, $biography)  {
     $SQL = "UPDATE heroes SET name = '$name', about_me = '$about_me', biography = '$biography' WHERE id = '$id'";
     global $conn;
@@ -85,7 +83,6 @@ function updateHero($id, $name, $about_me, $biography)  {
         echo "Error: " . $SQL . "<br>" . $conn->error;
     }
 }
-
 
 // Delete
 function deleteHero($name)   {
@@ -97,4 +94,3 @@ function deleteHero($name)   {
         echo "Error: " . $SQL . "<br>" . $conn->error;
     }
 }
-
